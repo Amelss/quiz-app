@@ -13,8 +13,11 @@ export default function QuizCard() {
         )
         .then((res) => res.data)
         .then((data) => {
-          setQuestionData(data.results);
-          console.log(data.results);
+          const questionData = data.results.map((question) => ({
+            ...question,
+            answers: [question.correct_answer, ...question.incorrect_answers].sort(() => Math.random() - 0.5)
+          }))
+          setQuestionData(questionData);
         })
         .catch((err) => {
           console.log(err);
@@ -27,7 +30,6 @@ export default function QuizCard() {
 
     const handleQuestion = (e) => {
       getQuestions();
-      console.log("api called");
     };
 
     
@@ -35,8 +37,8 @@ export default function QuizCard() {
     return (questionData.length > 0 ? (
         <div>
      
-          <Questions data={questionData[index]} />
-
+          <Questions data={questionData[index]} handleQuestion={handleQuestion} />
+          
     </div>
   ) : "Loading..."
   

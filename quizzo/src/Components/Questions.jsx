@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 
 
-export default function Questions({data:{question, correct_answer,incorrect_answers}}) {
+export default function Questions({handleQuestion, data:{question, answers}}) {
 
 
     
@@ -15,22 +15,20 @@ export default function Questions({data:{question, correct_answer,incorrect_answ
           </div>
 
           <div className="text-center">
-            <button className="border-2 border-backgroundPurple rounded-lg p-3 w-56 mb-3 font-bold ">
-              {correct_answer}
+            {answers.map((answer, idx) => {
+              return (
+                <button className="border-2 border-backgroundPurple rounded-lg p-3 w-56 mb-3 font-bold block mx-auto">
+              {answer}
             </button>
-            <br />
-            <button className="border-2 border-backgroundPurple rounded-lg p-3 w-56 mb-3 font-bold">
-              {incorrect_answers[0]}
-            </button>
-            <br />
-            <button className="border-2 border-backgroundPurple rounded-lg p-3 w-56 mb-3 font-bold">
-              {incorrect_answers[1]}
-            </button>
-            <br />
-            <button className="border-2 border-backgroundPurple rounded-lg p-3 w-56 mb-3 font-bold">
-              {incorrect_answers[2]}
-            </button>
+              )
+            })}
+            
+            
           </div>
+          <div className="text-center mt-10 ">
+            <button onClick={handleQuestion} className="bg-backgroundPurple w-56 p-3 rounded-lg text-white">Next Question</button>
+          </div>
+          
         </div>
       </div>
     );
